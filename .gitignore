@@ -1,0 +1,4 @@
+# package-lock.json should not be ignored
+package-lock.json
+node_modules
+.env
