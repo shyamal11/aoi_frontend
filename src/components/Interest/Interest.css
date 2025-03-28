@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+
+.interest-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #FFFFFF;
+  min-height: 100vh;
+  width: 100vw;
+  padding: 5vh 20px;
+  gap: 8vh;
+}
+
+.heading {
+  width: 822px;
+  height: 44px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 43px;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 2vh;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 800px;
+  margin: 2vh 0;
+}
+
+.left-side, .right-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.interest-box {
+  box-sizing: border-box;
+  position: relative;
+  width: 153px;
+  height: 56px;
+  background: #FFFFFF;
+  border: 1px solid #D1D1D6;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  color: #000000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.interest-box:hover {
+  background: #F0F0F0;
+  border-color: #2C2C2C;
+}
+
+.interest-box.selected {
+  background: #E5E5EA;
+  border: 1px solid #C7C7CC;
+  color: #000000;
+  font-weight: 600;
+}
+
+.component-2 {
+  position: relative;
+  width: 343px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2vh;
+  cursor: pointer;
+}
+
+.rectangle-2 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 354px;
+  height: 56px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #2C2C2C;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.component-2.active .rectangle-2 {
+  background: #000000;
+}
+
+.next {
+  position: relative;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 22px;
+  text-align: center;
+  color: #FFFFFF;
+  z-index: 1;
+} 
