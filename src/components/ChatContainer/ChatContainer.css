@@ -36,6 +36,7 @@
   padding: 10px 0;
   position: relative;
   border-bottom: 1px solid #eee;
+  color: #000000;
 }
 
 .chat-page .menu-icon {
@@ -47,6 +48,7 @@
   font-size: 24px;
   font-weight: bold;
   font-family: 'Inter';
+  color: #000000;
 }
 
 .chat-page .user-icon {
@@ -121,12 +123,12 @@
 .chat-page .chat-input {
   display: flex;
   align-items: center;
-  width:90%;
+  width: 90%;
   background: white;
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
- 
+  margin-top: 20px;
 }
 
 .chat-page .chat-input input {
@@ -135,6 +137,17 @@
   outline: none;
   font-size: 16px;
   padding: 0 10px;
+  background: transparent;
+  color: #333;
+}
+
+.chat-page .chat-input input::placeholder {
+  color: #999;
+}
+
+.chat-page .chat-input input:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .chat-page .send-icon {
