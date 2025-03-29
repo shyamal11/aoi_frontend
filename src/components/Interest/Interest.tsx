@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './Interest.css';
 
 const Interest = () => {
+  const navigate = useNavigate();
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
 
   const handleInterestClick = (interest: string) => {
@@ -18,8 +21,7 @@ const Interest = () => {
 
   const handleNext = () => {
     if (selectedInterests.length > 0) {
-      console.log('Selected interests:', selectedInterests);
-      // Handle navigation or next step
+      navigate('/chat');
     }
   };
 
