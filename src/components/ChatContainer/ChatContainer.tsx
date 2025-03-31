@@ -59,17 +59,7 @@ const ChatContainer = () => {
   };
 
   const formatMessage = (text: string) => {
-    // Simple and reliable bold formatting
-    const parts = text.split('**');
-    const elements = parts.map((part, index) => {
-      return index % 2 === 1 ? (
-        <strong key={`bold-${index}`}>{part}</strong>
-      ) : (
-        part
-      );
-    });
-
-    // Handle line breaks
+    // Handle line breaks and bold formatting
     return text.split('\n').map((line, lineIndex) => (
       <div key={lineIndex}>
         {line.split('**').map((segment, segIndex) => (
