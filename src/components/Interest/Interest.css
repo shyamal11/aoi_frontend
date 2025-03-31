@@ -1,125 +1,147 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background: #FFFFFF;
-}
-
+/* Reset for Interest component */
 .interest-page {
+  all: unset;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background: #FFFFFF;
+  justify-content: center;
   min-height: 100vh;
-  width: 100vw;
-  padding: 5vh 20px;
-  gap: 8vh;
-}
-
-.heading {
-  width: 822px;
-  height: 44px;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 36px;
-  line-height: 43px;
-  text-align: center;
-  color: #000000;
-  margin-bottom: 2vh;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  background-color: #f9f9f9;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
   width: 100%;
+  margin: 0;
+  overflow-y: auto;
+}
+
+.interest-page .heading {
+  all: unset;
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #000000;
+  line-height: normal;
+}
+
+.interest-page .container {
+  all: unset;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
   max-width: 800px;
-  margin: 2vh 0;
-}
-
-.left-side, .right-side {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.interest-box {
+  width: 100%;
   box-sizing: border-box;
-  position: relative;
-  width: 153px;
-  height: 56px;
-  background: #FFFFFF;
-  border: 1px solid #D1D1D6;
-  border-radius: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: none;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+.interest-page .interest-box {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  padding: 15px 25px;
+  background: white;
+  border: 2px solid lightgray;
+  border-radius: 15px;
   font-size: 16px;
-  font-weight: 400;
   text-align: center;
-  color: #000000;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.interest-box:hover {
-  background: #F0F0F0;
-  border-color: #2C2C2C;
-}
-
-.interest-box.selected {
-  background: #E5E5EA;
-  border: 1px solid #C7C7CC;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  transition: background 0.3s, transform 0.2s;
   color: #000000;
-  font-weight: 600;
 }
 
-.component-2 {
-  position: relative;
-  width: 343px;
-  height: 56px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2vh;
-  cursor: pointer;
+.interest-page .interest-box:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+  border-color: lightgray;
 }
 
-.rectangle-2 {
+.interest-page .interest-box.selected {
+  background: #e0e0e0;
+  border-color: #808080;
+  transform: scale(1.05);
+}
+
+.interest-page .component-2 {
+  all: unset;
   box-sizing: border-box;
-  position: absolute;
-  width: 354px;
-  height: 56px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid #2C2C2C;
-  border-radius: 16px;
-  transition: all 0.3s ease;
-}
-
-.component-2.active .rectangle-2 {
-  background: #000000;
-}
-
-.next {
+  display: block;
+  margin-top: 20px;
+  padding: 15px 40px;
+  background: gray;
+  color: white;
+  font-size: 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  opacity: 0.6;
+  width: auto;
+  height: auto;
   position: relative;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 22px;
   text-align: center;
-  color: #FFFFFF;
-  z-index: 1;
-} 
+  transition: opacity 0.3s;
+}
+
+.interest-page .component-2:hover {
+  border: none;
+  opacity: 0.8;
+}
+
+.interest-page .component-2.active {
+  opacity: 1;
+}
+
+.interest-page .component-2:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .interest-page .container {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    gap: 12px;
+  }
+
+  .interest-page .interest-box {
+    padding: 12px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .interest-page {
+    padding: 16px;
+  }
+
+  .interest-page .heading {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .interest-page .container {
+    gap: 10px;
+  }
+
+  .interest-page .interest-box {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+
+  .interest-page .component-2 {
+    padding: 12px 32px;
+    font-size: 16px;
+  }
+}
+
+/* iOS Specific */
+@supports (-webkit-touch-callout: none) {
+  .interest-page {
+    min-height: -webkit-fill-available;
+  }
+}
