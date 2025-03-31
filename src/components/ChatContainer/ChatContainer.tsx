@@ -1,14 +1,51 @@
 import { useState } from 'react';
 import './ChatContainer.css';
 
+interface Message {
+  text: string;
+  isUser: boolean;
+}
+
 const ChatContainer = () => {
   const [message, setMessage] = useState('');
   const [showProfile, setShowProfile] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (message.trim()) {
-      console.log('Sending message:', message);
+      // Add user message to chat
+      const userMessage = { text: message, isUser: true };
+      setMessages(prev => [...prev, userMessage]);
+      
+      // Clear input
       setMessage('');
+      setIsLoading(true);
+
+      try {
+        const response = await fetch('https://render-poc-j27e.onrender.com/ask', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ query: message }),
+        });
+
+        const data = await response.json();
+        
+        // Add AI response to chat
+        const aiMessage = { text: data.response, isUser: false };
+        setMessages(prev => [...prev, aiMessage]);
+      } catch (error) {
+        console.error('Error:', error);
+        const errorMessage = { 
+          text: 'Sorry, I encountered an error. Please try again.',
+          isUser: false 
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -39,6 +76,21 @@ const ChatContainer = () => {
         </div>
         
         <div className="chat-container">
+          {/* Messages */}
+          <div className="messages-container">
+            {messages.map((msg, index) => (
+              <div key={index} className={`message ${msg.isUser ? 'user' : 'ai'}`}>
+                {msg.text}
+              </div>
+            ))}
+            {isLoading && (
+              <div className="message ai loading">
+                Thinking...
+              </div>
+            )}
+          </div>
+
+          {/* Quick Buttons */}
           <div className="quick-buttons">
             <button onClick={() => handleQuickButtonClick("How can I donate to Child Care program?")}>
               "How can I donate to Child Care program?"
@@ -49,9 +101,7 @@ const ChatContainer = () => {
             <button onClick={() => handleQuickButtonClick("How can I donate to Child Care program?")}>
               "How can I donate to Child Care program?"
             </button>
-            <button onClick={() => handleQuickButtonClick("Show programs based on my interests")}>
-              "Show programs based on my interests"
-            </button>
+           
           </div>
         </div>
         
@@ -62,8 +112,12 @@ const ChatContainer = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+            disabled={isLoading}
           />
-          <div className="send-icon" onClick={handleSendMessage}>
+          <div 
+            className={`send-icon ${isLoading ? 'disabled' : ''}`} 
+            onClick={!isLoading ? handleSendMessage : undefined}
+          >
             <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g filter="url(#filter0_d_1_237)">
                 <rect x="8" y="10" width="36" height="36" rx="18" fill="#F2F2F7"/>
@@ -89,4 +143,4 @@ const ChatContainer = () => {
   );
 };
 
-export default ChatContainer; 
+export default ChatContainer;
