@@ -33,6 +33,8 @@
   border-bottom: 1px solid #F2F2F7;
   height: 76px;
   box-sizing: border-box;
+  position: sticky;
+  top: 0;
 }
 
 /* Icon Containers */
@@ -268,6 +270,31 @@
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
+  .chat-page {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .header {
+    padding: 12px 0;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: white;
+  }
+
+  .chat-container {
+    margin-top: 60px; /* Add margin to account for fixed header */
+    padding-bottom: 140px; /* Reduced padding for mobile */
+  }
+
   .menu-icon-container,
   .profile-icon-container {
     width: 40px;
@@ -292,24 +319,21 @@
     max-width: 90%;
   }
   
-  .quick-buttons button {
-    font-size: 0.75rem;
-    padding: 6px 10px;
+  .quick-buttons {
+    bottom: 70px;
+    padding: 8px 12px;
+    max-width: calc(100% - 24px);
+  }
+
+  .chat-input-container {
+    max-width: calc(100% - 24px);
+    padding: 12px;
   }
   
   .profile-box {
     width: 200px;
     padding: 12px;
-  }
-  
-  /* Mobile-specific adjustments */
-  .quick-buttons {
-    bottom: 70px; /* Closer to input on mobile */
-    padding: 8px 0;
-  }
-  
-  .chat-container {
-    padding-bottom: 70px;
+    right: 12px;
   }
 }
 

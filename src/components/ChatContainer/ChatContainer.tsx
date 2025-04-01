@@ -43,10 +43,12 @@ const ChatContainer = () => {
     
     window.addEventListener('resize', checkMobile);
     window.addEventListener('resize', setVh);
+    window.addEventListener('orientationchange', setVh);
     
     return () => {
       window.removeEventListener('resize', checkMobile);
       window.removeEventListener('resize', setVh);
+      window.removeEventListener('orientationchange', setVh);
     };
   }, []);
 
