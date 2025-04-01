@@ -66,8 +66,8 @@ const ChatContainer = () => {
           body: JSON.stringify({ query: message }),
         });
         const data = await response.json();
-        
-        const aiMessage = { text: data.response, isUser: false };
+        const cleanedResponse = data.response.replace(/<think>[\s\S]*?<\/think>/g, '');
+        const aiMessage = { text: cleanedResponse.trim(), isUser: false };
         setMessages(prev => [...prev, aiMessage]);
       } catch (error) {
         console.error('Error:', error);
