@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import './Interest.css';
 
 const Interest = () => {
@@ -25,83 +24,41 @@ const Interest = () => {
     }
   };
 
+  const interests = [
+    'Children & Education',
+    'Disaster Relief',
+    'Well-being',
+    'Environment & Sustainability',
+    'Women Empowerment',
+    'Animal Welfare',
+    'Rural Empowerment',
+    'River Rejuvenation',
+    'Organizing SKY Workshops',
+    'Youth Empowerment'
+  ];
+
   return (
     <div className="interest-page">
       <h1 className="heading">Please indicate your top three interests</h1>
-
       <div className="container">
-        <div className="left-side">
-          <div 
-            className={`interest-box ${selectedInterests.includes('Children & Education') ? 'selected' : ''}`}
-            onClick={() => handleInterestClick('Children & Education')}
+        {interests.map((interest, index) => (
+          <div
+            key={index}
+            className={`interest-box ${selectedInterests.includes(interest) ? 'selected' : ''}`}
+            onClick={() => handleInterestClick(interest)}
           >
-            Children & Education
+            {interest}
           </div>
-          <div 
-            className={`interest-box ${selectedInterests.includes('Well-being') ? 'selected' : ''}`}
-            onClick={() => handleInterestClick('Well-being')}
-          >
-            Well-being
-          </div>
-          <div 
-            className={`interest-box ${selectedInterests.includes('Women Empowerment') ? 'selected' : ''}`}
-            onClick={() => handleInterestClick('Women Empowerment')}
-          >
-            Women Empowerment
-          </div>
-          <div 
-            className={`interest-box ${selectedInterests.includes('Rural Empowerment') ? 'selected' : ''}`}
-            onClick={() => handleInterestClick('Rural Empowerment')}
-          >
-            Rural Empowerment
-          </div>
-          <div 
-            className={`interest-box ${selectedInterests.includes('Organizing SKY workshops') ? 'selected' : ''}`}
-            onClick={() => handleInterestClick('Organizing SKY workshops')}
-          >
-            Organizing SKY workshops
-          </div>
-        </div>
-        <div className="right-side">
-          <div 
-            className={`interest-box ${selectedInterests.includes('Disaster Relief') ? 'selected' : ''}`}
-            onClick={() => handleInterestClick('Disaster Relief')}
-          >
-            Disaster Relief
-          </div>
-          <div 
-            className={`interest-box ${selectedInterests.includes('Environment & Sustainability') ? 'selected' : ''}`}
-            onClick={() => handleInterestClick('Environment & Sustainability')}
-          >
-            Environment & Sustainability
-          </div>
-          <div 
-            className={`interest-box ${selectedInterests.includes('Animal Welfare') ? 'selected' : ''}`}
-            onClick={() => handleInterestClick('Animal Welfare')}
-          >
-            Animal Welfare
-          </div>
-          <div 
-            className={`interest-box ${selectedInterests.includes('River rejuvenation') ? 'selected' : ''}`}
-            onClick={() => handleInterestClick('River rejuvenation')}
-          >
-            River rejuvenation
-          </div>
-          <div 
-            className={`interest-box ${selectedInterests.includes('Youth Empowerment') ? 'selected' : ''}`}
-            onClick={() => handleInterestClick('Youth Empowerment')}
-          >
-            Youth Empowerment
-          </div>
-        </div>
+        ))}
       </div>
-
-      <div className={`component-2 ${selectedInterests.length > 0 ? 'active' : ''}`} onClick={handleNext}>
-        <div className="rectangle-2"></div>
-        <div className="next">Next</div>
-      </div>
+      <button 
+        className={`component-2 ${selectedInterests.length > 0 ? 'active' : ''}`}
+        onClick={handleNext}
+      >
+        Next
+      </button>
     </div>
   );
 };
 
-export default Interest; 
+export default Interest;
