@@ -2,26 +2,28 @@
 .chat-page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-  max-height: -webkit-fill-available;
+  height: 100%;
+  width: 100%;
   background: white;
+  overflow: hidden;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  max-width: 1200px;
+  flex: 1;
+  width: 100%;
+  max-width: 1168px;;
   margin: 0 auto;
   padding: 0 16px;
-  position: relative; /* Added for positioning context */
+  position: relative;
+  overflow: hidden;
 }
 
 /* Header Styles */
 .header {
-  position: sticky;
-  top: 0;
+  flex-shrink: 0;
+  width: 100%;
   padding: 16px 0;
   display: flex;
   align-items: center;
@@ -29,6 +31,8 @@
   background: white;
   z-index: 10;
   border-bottom: 1px solid #F2F2F7;
+  height: 76px;
+  box-sizing: border-box;
 }
 
 /* Icon Containers */
@@ -117,16 +121,19 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  min-height: 0;
-   /* Space for input container */
+  position: relative;
+  padding-bottom: 160px; /* Increased to account for quick buttons and input */
 }
 
 .messages-container {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   scroll-behavior: smooth;
   padding: 8px 0;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .message {
@@ -176,19 +183,21 @@
 
 /* Quick Buttons - FIXED POSITIONING */
 .quick-buttons {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 80px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 12px 0;
+  padding: 12px 16px;
   overflow-x: auto;
-  flex-shrink: 0;
-  margin-bottom: 10px;
-  position: sticky;
-  bottom: 80px; /* Position above input */
   background: white;
   z-index: 5;
-  border-top: 1px solid #F2F2F7;
-  padding-top: 12px;
+  
+  width: 100%;
+  max-width: 1168px; /* 1200px - 32px for padding */
+  box-sizing: border-box;
 }
 
 .quick-buttons button {
@@ -207,24 +216,21 @@
 }
 
 /* Chat Input - FIXED POSITION */
-/* Add this to your existing CSS */
 .chat-input-container {
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   padding: 12px 16px;
   background: white;
   z-index: 10;
-  /* New width calculation */
-  width: calc(100% - 32px);
-  max-width: 980px; /* 1200px + 32px padding */
+  width: 100%;
+  max-width: 1168px; /* 1200px - 32px for padding */
   margin: 0 auto;
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
   box-sizing: border-box;
+  
 }
-
-
 
 .chat-input {
   display: flex;
