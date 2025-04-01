@@ -5,6 +5,7 @@
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   max-height: -webkit-fill-available;
+  background: white;
 }
 
 .container {
@@ -14,17 +15,20 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 16px;
+  position: relative; /* Added for positioning context */
 }
 
 /* Header Styles */
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
   padding: 16px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: white;
-  z-index: 5;
+  z-index: 10;
+  border-bottom: 1px solid #F2F2F7;
 }
 
 /* Icon Containers */
@@ -50,6 +54,12 @@
   cursor: pointer;
   background-color: #F2F2F7;
   border: 2px solid #F2F2F7;
+  transition: transform 0.2s ease;
+}
+
+.menu-icon:hover,
+.user-icon:hover {
+  transform: scale(1.05);
 }
 
 .menu-icon {
@@ -84,7 +94,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 220px;
   display: none;
-  z-index: 10;
+  z-index: 15;
 }
 
 .profile-box.active {
@@ -108,7 +118,7 @@
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
-  padding-bottom: 20px; /* Added to create space at bottom */
+   /* Space for input container */
 }
 
 .messages-container {
@@ -116,8 +126,7 @@
   overflow-y: auto;
   scroll-behavior: smooth;
   padding: 8px 0;
-  max-height: 70vh;
-  margin-bottom: 10px; /* Added spacing above input */
+  margin-bottom: 10px;
 }
 
 .message {
@@ -165,7 +174,7 @@
   animation-delay: 0.4s;
 }
 
-/* Quick Buttons */
+/* Quick Buttons - FIXED POSITIONING */
 .quick-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -173,7 +182,13 @@
   padding: 12px 0;
   overflow-x: auto;
   flex-shrink: 0;
-  margin-bottom: 10px; /* Added spacing above input */
+  margin-bottom: 10px;
+  position: sticky;
+  bottom: 80px; /* Position above input */
+  background: white;
+  z-index: 5;
+  border-top: 1px solid #F2F2F7;
+  padding-top: 12px;
 }
 
 .quick-buttons button {
@@ -184,18 +199,32 @@
   cursor: pointer;
   white-space: nowrap;
   font-size: 0.875rem;
+  transition: background-color 0.2s ease;
 }
 
-/* Chat Input */
-.chat-input-container {
-  padding: 12px 0;
-  flex-shrink: 0;
-  position: sticky;
-  bottom: 20px; /* Reduced from 20px for better spacing */
-  background: white;
-  padding-bottom: env(safe-area-inset-bottom);
-  margin-bottom: 10px;
+.quick-buttons button:hover {
+  background-color: #E5E5EA;
 }
+
+/* Chat Input - FIXED POSITION */
+/* Add this to your existing CSS */
+.chat-input-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px;
+  background: white;
+  z-index: 10;
+  /* New width calculation */
+  width: calc(100% - 32px);
+  max-width: 980px; /* 1200px + 32px padding */
+  margin: 0 auto;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+
 
 .chat-input {
   display: flex;
@@ -203,8 +232,8 @@
   background-color: #F2F2F7;
   border-radius: 18px;
   padding: 8px 12px;
+  width: 100%; /* Full width of its container */
 }
-
 .chat-input input {
   flex: 1;
   border: none;
@@ -267,8 +296,14 @@
     padding: 12px;
   }
   
-  .chat-input-container {
-    bottom: 8px; /* Slightly higher on mobile */
+  /* Mobile-specific adjustments */
+  .quick-buttons {
+    bottom: 70px; /* Closer to input on mobile */
+    padding: 8px 0;
+  }
+  
+  .chat-container {
+    padding-bottom: 70px;
   }
 }
 
@@ -293,22 +328,18 @@
     height: 44px;
   }
   
-  .messages-container {
-    max-height: 60vh;
-  }
-  
   .message {
     max-width: 60%;
   }
   
   .quick-buttons {
-    position: sticky;
-    bottom: 100px; /* Adjusted for tall screens */
-    background: white;
-    z-index: 1;
+    bottom: 100px;
   }
-  
-  .chat-input-container {
-    bottom: 20px; /* More space on tall screens */
+}
+
+/* iOS Viewport Fix */
+@supports (padding: max(0px)) {
+  .chat-page {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
   }
 }
