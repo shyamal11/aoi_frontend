@@ -20,12 +20,10 @@ const ChatContainer = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if mobile on mount and resize
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     
-    // Handle mobile viewport height
     const setVh = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -99,17 +97,25 @@ const ChatContainer = () => {
     <div className="chat-page">
       <div className="container">
         <div className="header">
-          <div className="menu-icon">☰</div>
+          {/* Left side menu icon - simple non-functional version */}
+          <div className="menu-icon-container">
+            <div className="menu-icon">☰</div>
+          </div>
+          
           <div className="title">Altru AI</div>
-          <img 
-            src="/user-placeholder.jpg" 
-            alt="User" 
-            className="user-icon"
-            onClick={toggleProfileBox}
-          />
-          <div className={`profile-box ${showProfile ? 'active' : ''}`}>
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Email:</strong> john.doe@example.com</p>
+          
+          {/* Right side profile icon */}
+          <div className="profile-icon-container">
+            <img 
+              src="/user-placeholder.jpg" 
+              alt="User" 
+              className="user-icon"
+              onClick={toggleProfileBox}
+            />
+            <div className={`profile-box ${showProfile ? 'active' : ''}`}>
+              <p><strong>Name:</strong> John Doe</p>
+              <p><strong>Email:</strong> john.doe@example.com</p>
+            </div>
           </div>
         </div>
         
