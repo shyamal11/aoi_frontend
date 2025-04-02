@@ -22,38 +22,44 @@ const ChatContainer = () => {
     scrollToBottom();
   }, [messages, isLoading]);
 
+  const formatMessage = (text: string) => {
+    return text.split('\n').map((line, lineIndex) => (
+      <div key={lineIndex}>
+        {line.split('**').map((segment, segIndex) => (
+          segIndex % 2 === 1 ? (
+            <strong key={`seg-${lineIndex}-${segIndex}`}>{segment}</strong>
+          ) : (
+            segment
+          )
+        ))}
+        {lineIndex < text.split('\n').length - 1 && <br />}
+      </div>
+    ));
+  };
+
   const handleSendMessage = async () => {
     if (message.trim()) {
-      // Add user message to chat
       const userMessage = { text: message, isUser: true };
       setMessages(prev => [...prev, userMessage]);
-      
-      // Clear input
       setMessage('');
       setIsLoading(true);
 
       try {
         const response = await fetch('https://render-poc-j27e.onrender.com/ask', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ query: message }),
         });
-
         const data = await response.json();
-        
-        // Add AI response to chat
-        const aiMessage = { text: data.response, isUser: false };
+        const cleanedResponse = data.response.replace(/<think>[\s\S]*?<\/think>/g, '');
+        const aiMessage = { text: cleanedResponse.trim(), isUser: false };
         setMessages(prev => [...prev, aiMessage]);
-        setHasReceivedResponse(true);
       } catch (error) {
         console.error('Error:', error);
-        const errorMessage = { 
+        setMessages(prev => [...prev, { 
           text: 'Sorry, I encountered an error. Please try again.',
           isUser: false 
-        };
-        setMessages(prev => [...prev, errorMessage]);
+        }]);
       } finally {
         setIsLoading(false);
       }
@@ -67,6 +73,9 @@ const ChatContainer = () => {
   const toggleProfileBox = () => {
     setShowProfile(!showProfile);
   };
+
+
+ 
 
   return (
     <div className="chat-page">
@@ -91,7 +100,7 @@ const ChatContainer = () => {
           <div className="messages-container">
             {messages.map((msg, index) => (
               <div key={index} className={`message ${msg.isUser ? 'user' : 'ai'}`}>
-                {msg.text}
+                {formatMessage(msg.text)}
               </div>
             ))}
             {isLoading && (
