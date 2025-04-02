@@ -54,12 +54,15 @@ const ChatContainer = () => {
         const cleanedResponse = data.response.replace(/<think>[\s\S]*?<\/think>/g, '');
         const aiMessage = { text: cleanedResponse.trim(), isUser: false };
         setMessages(prev => [...prev, aiMessage]);
+        setHasReceivedResponse(true);
       } catch (error) {
         console.error('Error:', error);
-        setMessages(prev => [...prev, { 
+        const errorMessage = { 
           text: 'Sorry, I encountered an error. Please try again.',
           isUser: false 
-        }]);
+        };
+        setMessages(prev => [...prev, errorMessage]);
+        setHasReceivedResponse(true);
       } finally {
         setIsLoading(false);
       }
