@@ -16,7 +16,7 @@ export default function GoogleCallback() {
         try {
           const userData = await handleGoogleCallback(code);
           setUser(userData);
-          navigate('/dashboard');
+          navigate('/interests');
         } catch (error) {
           console.error('Authentication failed:', error);
           navigate('/login');
