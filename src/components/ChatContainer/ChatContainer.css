@@ -264,4 +264,78 @@
   .chat-page .profile-box {
     font-size: 14px;
   }
-} 
+}
+
+.projects-container {
+  margin-top: 20px;
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.projects-header {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000000;
+  background: #F5F5F5;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.projects-subheader {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  margin-top: 8px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.project-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5EA;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-card h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.project-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #000000;
+  line-height: 1.4;
+}
+
+.donate-button {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #000000;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  width: fit-content;
+}
+
+.donate-button:hover {
+  background: #333333;
+}

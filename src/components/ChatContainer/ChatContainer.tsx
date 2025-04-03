@@ -6,12 +6,19 @@ interface Message {
   isUser: boolean;
 }
 
+interface Project {
+  title: string;
+  description: string;
+  donation_link: string;
+}
+
 const ChatContainer = () => {
   const [message, setMessage] = useState('');
   const [showProfile, setShowProfile] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasReceivedResponse, setHasReceivedResponse] = useState(false);
+  const [projects, setProjects] = useState<Project[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -21,6 +28,16 @@ const ChatContainer = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
+
+  const formatDescription = (description: string) => {
+    if (!description) return '';
+    const parts = description.split(':');
+    if (parts.length > 1) {
+      const sentences = parts[1].split('.');
+      return sentences[0].replace(/"/g, '').trim();
+    }
+    return description;
+  };
 
   const formatMessage = (text: string) => {
     return text.split('\n').map((line, lineIndex) => (
@@ -51,10 +68,19 @@ const ChatContainer = () => {
           body: JSON.stringify({ query: message }),
         });
         const data = await response.json();
+        console.log('API Response:', data);
         const cleanedResponse = data.response.replace(/<think>[\s\S]*?<\/think>/g, '');
         const aiMessage = { text: cleanedResponse.trim(), isUser: false };
         setMessages(prev => [...prev, aiMessage]);
         setHasReceivedResponse(true);
+        
+        // Check if projects array exists in the response and has items
+        if (data.projects && Array.isArray(data.projects) && data.projects.length > 0) {
+          console.log('Projects from API:', data.projects);
+          setProjects(data.projects);
+        } else {
+          setProjects([]);
+        }
       } catch (error) {
         console.error('Error:', error);
         const errorMessage = { 
@@ -76,9 +102,6 @@ const ChatContainer = () => {
   const toggleProfileBox = () => {
     setShowProfile(!showProfile);
   };
-
-
- 
 
   return (
     <div className="chat-page">
@@ -104,6 +127,29 @@ const ChatContainer = () => {
             {messages.map((msg, index) => (
               <div key={index} className={`message ${msg.isUser ? 'user' : 'ai'}`}>
                 {formatMessage(msg.text)}
+                {!msg.isUser && hasReceivedResponse && index === messages.length - 1 && projects.length > 0 && (
+                  <div className="projects-container">
+                    <div className="projects-subheader">
+                      Here are some projects near you
+                    </div>
+                    <div className="projects-grid">
+                      {projects.map((project, index) => (
+                        <div key={index} className="project-card">
+                          <h3>{project.title}</h3>
+                          <p>{formatDescription(project.description)}</p>
+                          <a 
+                            href={project.donation_link ? project.donation_link : 'https://iahv.networkforgood.com/projects/71211-cities-for-peace'} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="donate-button"
+                          >
+                            Donate Now
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
             {isLoading && (
