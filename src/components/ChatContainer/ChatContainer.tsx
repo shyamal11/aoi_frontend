@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import './ChatContainer.css';
+import { useAuthStore } from '../../utils/auth';
 
 interface Message {
   text: string;
@@ -20,6 +21,7 @@ const ChatContainer = () => {
   const [hasReceivedResponse, setHasReceivedResponse] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const user = useAuthStore((state) => state.user);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -110,14 +112,14 @@ const ChatContainer = () => {
           <div className="menu-icon">☰</div>
           <div className="title">Altru AI</div>
           <img 
-            src="/user-placeholder.jpg" 
+            src={user?.picture} 
             alt="User" 
             className="user-icon"
             onClick={toggleProfileBox}
           />
           <div className={`profile-box ${showProfile ? 'active' : ''}`}>
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Email:</strong> john.doe@example.com</p>
+            <p><strong>Name:</strong> {user?.name || 'User'}</p>
+            <p><strong>Email:</strong> {user?.email || 'user@example.com'}</p>
           </div>
         </div>
         
@@ -169,8 +171,8 @@ const ChatContainer = () => {
               <button onClick={() => handleQuickButtonClick("Show programs based on my interests")}>
                 "Show programs based on my interests"
               </button>
-              <button onClick={() => handleQuickButtonClick("How can I donate to Child Care program?")}>
-                "How can I donate to Child Care program?"
+              <button onClick={() => handleQuickButtonClick("Are there any volunteeering opportunities for me?")}>
+                "Are there any volunteeering opportunities for me?"
               </button>
             </div>
           )}
